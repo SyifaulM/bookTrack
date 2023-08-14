@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add New Book"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/optionAddOnline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add Online"
+        android:drawableLeft="@drawable/baseline_search_24_add"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/optionAddManual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add Manual"
+        android:drawableLeft="@drawable/baseline_keyboard_24"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:clickable="true"
+        android:layout_marginTop="4dp"/>
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.booktrack.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/bookShelfFragment"
+        android:name="com.example.booktrack.fragments.BookShelfFragment"
+        android:label="fragment_book_shelf"
+        tools:layout="@layout/fragment_book_shelf" />
+    <fragment
+        android:id="@+id/achievementFragment"
+        android:name="com.example.booktrack.fragments.AchievementFragment"
+        android:label="fragment_achievement"
+        tools:layout="@layout/fragment_achievement" />
+</navigation>

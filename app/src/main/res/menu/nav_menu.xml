@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"
+        app:cnb_iconColor="@color/primary"/>
+    <item
+        android:id="@+id/bookshelf"
+        android:icon="@drawable/baseline_menu_book_24"
+        android:title="Bookshelf"
+        app:cnb_iconColor="@color/primary"/>
+    <item
+        android:id="@+id/finished"
+        android:icon="@drawable/outline_collections_bookmark_24"
+        android:title="Achievement"
+        app:cnb_iconColor="@color/primary" />
+</menu>
