@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="170dp"
-    android:layout_height="265dp"
+    android:layout_width="130dp"
+    android:layout_height="210dp"
     android:elevation="1dp"
     app:cardCornerRadius="15dp"
     app:cardUseCompatPadding="true"
@@ -16,9 +16,9 @@
 
         <ImageView
             android:id="@+id/finished_img"
-            android:layout_width="150dp"
-            android:layout_height="160dp"
-            android:src="@drawable/book_image"/>
+            android:layout_width="110dp"
+            android:layout_height="115dp"
+            android:src="@drawable/square_book_img"/>
 
         <TextView
             android:id="@+id/title_book"
@@ -26,7 +26,7 @@
             android:layout_height="23dp"
             android:layout_marginTop="8dp"
             android:text="Title"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_below="@+id/finished_img" />
@@ -35,7 +35,7 @@
             android:layout_width="150dp"
             android:layout_height="23dp"
             android:text="Title"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textColor="@color/grey"
             android:layout_below="@+id/title_book" />
     </RelativeLayout>

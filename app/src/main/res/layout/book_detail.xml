@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    android:id="@+id/root_detail">
     <RelativeLayout
         android:id="@+id/top_nav"
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginVertical="10dp">
         <ImageButton
-            android:id="@+id/back_button"
+            android:id="@+id/back_button_detail"
             android:layout_alignParentLeft="true"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -45,7 +46,7 @@
     <ScrollView
         android:id="@+id/body"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/top_nav">
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,54 +72,80 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
                 android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white"
                 app:cardElevation="0dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="30dp">
+                    android:padding="15dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/detail_cur"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="current"
+                            android:textColor="@color/grey"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="/"
+                            android:textColor="@color/black"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/detail_total_pages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="total"
+                            android:textColor="@color/grey"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                     <TextView
-                        android:id="@+id/detail_cur"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="current"
-                        android:textColor="@color/grey"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detail_total_pages"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="total"
-                        android:textColor="@color/grey"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:text="Tap To Change"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 app:cardElevation="0dp"
                 android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp">
                 <RatingBar
+                    android:progressBackgroundTint="@color/grey"
                     android:id="@+id/detail_rate"
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:isIndicator="true"
                     android:layout_gravity="center"
                     android:layout_marginVertical="10dp"
-                    android:numStars="5"/>
+                    android:numStars="5"
+                    android:stepSize="1"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="170dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="0dp">
@@ -136,7 +163,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/input_title"
+                        android:id="@+id/item_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text"
@@ -144,7 +171,8 @@
                         android:gravity="center"
                         android:hint=""
                         android:inputType="text"
-                        android:padding="10dp" />
+                        android:padding="10dp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -154,13 +182,14 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/input_writer"
+                        android:id="@+id/item_writer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text"
                         android:ems="10"
                         android:gravity="center"
                         android:hint=""
+                        android:textColor="@color/black"
                         android:inputType="text"
                         android:padding="10dp" />
 
@@ -172,13 +201,14 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/input_publisher"
+                        android:id="@+id/item_publisher"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text"
                         android:ems="10"
                         android:gravity="center"
                         android:hint=""
+                        android:textColor="@color/black"
                         android:inputType="text"
                         android:padding="10dp" />
 
@@ -190,13 +220,14 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/input_pages"
+                        android:id="@+id/item_pages"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text"
                         android:ems="10"
                         android:gravity="center"
                         android:hint=""
+                        android:textColor="@color/black"
                         android:inputType="number"
                         android:padding="10dp" />
 
@@ -208,7 +239,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/input_desc"
+                        android:id="@+id/item_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text"
@@ -218,22 +249,45 @@
                         android:ems="10"
                         android:gravity="center"
                         android:hint=""
+                        android:textColor="@color/black"
                         android:inputType="textMultiLine"
                         android:padding="10dp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
                         android:gravity="center">
                         <Button
+                            android:id="@+id/edit_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Edit"
+                            android:textColor="@color/white"
+                            android:clickable="true"
                             android:backgroundTint="@color/grey"
                             android:layout_marginRight="50dp"/>
                         <Button
+                            android:id="@+id/cancel_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:textColor="@color/white"
+                            android:clickable="true"
+                            android:backgroundTint="@color/grey"
+                            android:layout_marginRight="50dp"/>
+                        <Button
+                            android:id="@+id/save_btn_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="Simpan"
+                            android:backgroundTint="@color/save"/>
+                        <Button
+                            android:id="@+id/del_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
                             android:text="Delete"
                             android:backgroundTint="@color/delete"/>
                     </LinearLayout>

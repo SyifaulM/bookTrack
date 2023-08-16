@@ -1,60 +1,68 @@
 package com.example.booktrack.fragments
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.booktrack.BookShowItem
 import com.example.booktrack.R
+import com.example.booktrack.adapter.BookAdapter
+import com.example.booktrack.data.AppDatabase
+import com.example.booktrack.data.entity.Book
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AchievementFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AchievementFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private var list = mutableListOf<Book>()
+    private lateinit var adapter: BookAdapter
+    private lateinit var database: AppDatabase
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_achievement, container, false)
+        val view = inflater.inflate(R.layout.fragment_achievement, container, false)
+        recyclerView = view.findViewById(R.id.finished_list)
+
+        database = AppDatabase.getInstance(requireContext())
+        setUpRecyclerView()
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AchievementFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AchievementFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun setUpRecyclerView() {
+        adapter = BookAdapter(list, object : BookAdapter.OnAdapterListener{
+            override fun onClick(book: Book) {
+                val intent = Intent(requireContext(), BookShowItem::class.java)
+                    .putExtra("intent_id", book.id)
+                startActivity(intent)
             }
+        })
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
+            RecyclerView.VERTICAL,true)
+        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.HORIZONTAL))
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
     }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun getData(){
+        list.clear()
+        list.addAll(database.bookDao().getAllBooksWhereCurrEqualsPage())
+        adapter.notifyDataSetChanged()
+    }
+
 }
+

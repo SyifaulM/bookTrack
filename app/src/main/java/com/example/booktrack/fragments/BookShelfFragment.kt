@@ -1,101 +1,105 @@
 package com.example.booktrack.fragments
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.fragment.app.DialogFragment
+import android.widget.ImageButton
+import android.widget.PopupMenu
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.example.booktrack.BookAddManual
+import com.example.booktrack.BookShowItem
 import com.example.booktrack.R
+import com.example.booktrack.adapter.BookAdapter
+import com.example.booktrack.adapter.CurrentAdapter
+import com.example.booktrack.data.AppDatabase
+import com.example.booktrack.data.entity.Book
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BookShelfFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BookShelfFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var recyclerView: RecyclerView
+    private var list = mutableListOf<Book>()
+    private lateinit var adapter: BookAdapter
+    private lateinit var database: AppDatabase
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_shelf, container, false)
+        val view = inflater.inflate(R.layout.fragment_book_shelf, container, false)
+        recyclerView = view.findViewById(R.id.book_list)
+
+        database = AppDatabase.getInstance(requireContext())
+        setUpRecyclerView()
+        return view
+    }
+
+    private fun setUpRecyclerView() {
+        adapter = BookAdapter(list, object : BookAdapter.OnAdapterListener{
+            override fun onClick(book: Book) {
+                val intent = Intent(requireContext(), BookShowItem::class.java)
+                    .putExtra("intent_id", book.id)
+                startActivity(intent)
+            }
+        })
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),VERTICAL,true)
+        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), HORIZONTAL))
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun getData(){
+        list.clear()
+        list.addAll(database.bookDao().getAll())
+        adapter.notifyDataSetChanged()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val showPopupButton = view.findViewById<Button>(R.id.add_btn)
+        val addButton = view.findViewById<ImageButton>(R.id.add_btn)
 
-        showPopupButton.setOnClickListener {
-            val dialogFragment = AddDialogFragment()
-            dialogFragment.show(childFragmentManager, "AddDialogFragment")
+        addButton.setOnClickListener {
+            showPopupMenu(addButton)
         }
     }
 
-    inner class AddDialogFragment : DialogFragment() {
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
 
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            return inflater.inflate(R.layout.popup_menu, container, false)
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            val optionSearchOnline = view.findViewById<TextView>(R.id.optionAddOnline)
-            val optionSearchManual = view.findViewById<TextView>(R.id.optionAddManual)
-
-            optionSearchOnline.setOnClickListener {
-                // Handle search online option
-                dismiss()
-            }
-
-            optionSearchManual.setOnClickListener {
-                // Handle search manual option
-                dismiss()
-            }
-        }
-    }
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BookShelfFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BookShelfFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+//                R.id.action_add_online -> {
+//                    // Navigate to BookAddOnline activity
+//                    val intent = Intent(requireContext(), BookAddOnline::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+                R.id.action_add_manual -> {
+                    val intent = Intent(requireContext(), BookAddManual::class.java)
+                    startActivity(intent)
+                    true
                 }
+                else -> false
             }
+        }
+
+        popupMenu.show()
     }
 }

@@ -2,18 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home"
-        app:cnb_iconColor="@color/primary"/>
+        android:title="Home"/>
     <item
-        android:id="@+id/bookshelf"
+        android:id="@+id/bookShelfFragment"
         android:icon="@drawable/baseline_menu_book_24"
-        android:title="Bookshelf"
-        app:cnb_iconColor="@color/primary"/>
+        android:title="Bookshelf"/>
     <item
-        android:id="@+id/finished"
+        android:id="@+id/achievementFragment"
         android:icon="@drawable/outline_collections_bookmark_24"
-        android:title="Achievement"
-        app:cnb_iconColor="@color/primary" />
+        android:title="Achievement"/>
 </menu>

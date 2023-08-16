@@ -10,4 +10,5 @@
     <color name="primary">#B5DEC6</color>
     <color name="grey">#5B5B5B</color>
     <color name="delete">#9F3C3C</color>
+    <color name="save">#FF00BCD4</color>
 </resources>

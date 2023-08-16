@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    android:elevation="1dp"
+    app:cardCornerRadius="15dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/book_item_finished"
+    app:cardElevation="0dp"
+    android:clickable="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/finished_img"
+            android:layout_width="150dp"
+            android:layout_height="160dp"
+            android:src="@drawable/book_image"/>
+
+        <TextView
+            android:id="@+id/title_book"
+            android:layout_width="150dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="8dp"
+            android:text="Title"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_below="@+id/finished_img" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/title_book">
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/finished_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="rate"
+                android:textColor="@color/grey"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="/ 5"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
